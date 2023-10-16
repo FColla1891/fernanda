@@ -3,9 +3,22 @@ var prodID = localStorage.getItem('prodID');
 let URL_prod = `https://japceibal.github.io/emercado-api/products/${prodID}.json`;
 let URL_com = `https://japceibal.github.io/emercado-api/products_comments/${prodID}.json`;
 
+let cantidadProducto = 1;
+let precioProducto = 0;
+let productData;
+let productosEnCarrito = [];
+
 // Hacer la solicitud fetch para obtener la información del producto
 fetchData(URL_prod);
 fetchComments(URL_com);
+
+document.querySelector('#units').addEventListener('change', function () {
+  calcularSubtotal(precioProducto);
+});
+
+document.querySelector('#btnCart').addEventListener('click', function () {
+  agregarAlCarrito(productData, cantidadProducto);
+});
 
 // Obtener una referencia al formulario y al contenedor de comentarios
 const commentForm = document.getElementById('comment-form');
@@ -38,11 +51,11 @@ commentForm.addEventListener('submit', function (event) {
   const newComment = document.createElement('div');
   newComment.className = 'comment';
   newComment.innerHTML = `
-    <p>Puntuación: ${score}</p>  
-    <p>${username}</p>
-    <p>Comentario: ${commentText}</p>
-    <p>Fecha y Hora: ${formattedDate}</p>
-    <hr>
+    <p class="pttts">Puntuación: ${score}</p>  
+    <p class="ussser">${username}</p>
+    <p class="commm">Comentario: ${commentText}</p>
+    <p class="daaate">Fecha y Hora: ${formattedDate}</p>
+    <br> <hr>
   `;
 
   commentsContainer.appendChild(newComment);
@@ -57,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (usuario == '' || usuario == null) {
     location.href = 'login.html';
   } else {
-    document.getElementById('nombre').innerHTML = usuario;
+    document.getElementById('nombre').innerHTML += usuario;
   }
 
   let logout = document.getElementById('salir');
@@ -74,8 +87,10 @@ function fetchData(url) {
   fetch(url)
     .then(response => response.json())
     .then(data => {
+      productData = data;
       showProductGalery(data);
       showMainInfo(data);
+      calcularSubtotal(precioProducto);
       showProductDescription(data);
       showRelatedProducts(data);
     })
@@ -112,15 +127,16 @@ function showImgList(data) {
     imgList.innerHTML += `
       <div class="mySlides">
           <div class="numbertext">${numImg} / ${data.images.length}</div>
-          <img src='${one}' onclick='expose("${one}") style="width:100%'>
+          <img class="img-fluid" src='${one}' onclick='expose("${one}") style="width:100%'>
       </div>`;
     imgRow.innerHTML += `
       <div class="column">
-          <img class="demo cursor" src="${one}"  onclick="currentSlide(${numImg})" style="width:100%;";" >
+          <img class="demo cursor img-fluid" src="${one}"  onclick="currentSlide(${numImg})" style="width:100%;";" >
       </div>`;
     numImg++;
   }
 }
+
 let slideIndex = 1;
 showSlides(slideIndex);
 // Controles
@@ -154,6 +170,9 @@ function showMainInfo(data) {
   let des = document.getElementById('mainInfo');
   let prodName = document.getElementById('prodName');
   let prodCost = document.getElementById('prodCost');
+
+  precioProducto = data.cost;
+
   prodName.innerHTML += `${data.name}`;
 
   prodCost.innerHTML += `${data.currency}:  <span id="cost">${data.cost} </span>`;
@@ -176,7 +195,14 @@ function showProductRelacionado(data) {
   // Esta funcion obtendra los productos del array y luego se llamará dentro de showRelatedProducts
   let relprod = document.getElementById('relprod');
   for (let product of data.relatedProducts) {
-    relprod.innerHTML += ` <div class=containerRelProd> <div class="product-info"> <img src=${product.image}>  <p>${product.name}</p> </div></div>`;
+    relprod.innerHTML += `
+    <div class="containerRelProd" id="${product.id}" onclick="setProdID(${product.id})">
+     <div class="product-info">
+     <img class="img-fluid"src=${product.image}>
+     <p>${product.name}</p> 
+     </div>
+    </div>
+    `;
   }
 }
 
@@ -189,14 +215,43 @@ function showProductComments(data) {
     commentElement.classList.add('comment');
 
     commentElement.innerHTML = `
-      <p id="pttts" > Puntuación: ${comment.score} </p>
-      <p id="ussser"> <img src="img/usuario.png" id="commusser"> ${comment.user}</p>
-      <p id="commm"> ${comment.description}</p>
-      <p id="daaate"> ${comment.dateTime}</p>
+      <p class="pttts" > Puntuación: ${comment.score} </p>
+      <p class="ussser"> <img src="img/usuario.png" id="commusser"> ${comment.user}</p>
+      <p class="commm"> ${comment.description}</p>
+      <p class="daaate"> ${comment.dateTime}</p>
       <br> <hr>
       
     `;
 
     commentsContainer.appendChild(commentElement);
   }
+}
+function setProdID(id) {
+  localStorage.setItem('prodID', id);
+  window.location = 'product-info.html';
+}
+
+function calcularSubtotal(precioProducto) {
+  cantidadProducto = document.querySelector('#units').value;
+  let div = document.querySelector('#divSubtotal');
+
+  subtotal = precioProducto * cantidadProducto;
+
+  div.innerHTML = `Subtotal ${subtotal}`;
+}
+
+function agregarAlCarrito(productData, cantidadProducto) {
+  let productoEnCarrito = {
+    Nombre: productData.name,
+    Descripcion: productData.description,
+    Cantidad: cantidadProducto,
+    Id: productData.id,
+    Imagen: productData.images[0],
+    Divisa: productData.currency,
+    CosteUnidad: productData.cost,
+  };
+
+  productosEnCarrito.push(productoEnCarrito);
+  localStorage.setItem('cartProducts', JSON.stringify(productosEnCarrito));
+  console.log(cantidadProducto);
 }

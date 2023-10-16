@@ -9,64 +9,109 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="js/dark-mode.js" defer></script>
 </head>
 
-<body>
-  <header class="header">
-    <div class="logo">
-      <div class="usuario">
-      <img src="img/usuario.png" alt="logo o imagen usuario" class="logo-usuario">
-      <a class="prof-link" id="nombre"></a>
-    
-      <ul class="submenu-logo">
-       
-        <li class="item-logo">
-          <a class="prof-link" id="miPerfil" href="my-profile.html">Mi perfil</a> <!--Faltaria agregar un href="" que dirija a la pagina de perfil de usuario-->
-        </li>
-        <li class="item-logo">
-          <a class="prof-link" id="misCompras" href="wip.html">Mis compras</a> <!--Faltaria agregar un href="" que dirija a la pagina de compras-->
-        </li>
-        <hr>
-        <li class="item-logo">
-          <input type="button" id="salir" value="Desconectar">
-        </li>
-      </ul>
-    </div>
-    <div class="carrito">
-     <img src="img/Logo-carrito.png" alt="logo carrito de compras" class="logo-carrito">
-    </div>
-    </div>
-  <nav>
-  
-        <ul class="nav-links">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Inicio</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="categories.html">Categorías</a>
-           
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="sell.html">Vender</a>
-          </li>
-
-          <li class="nav-item">
-          </li>
-
-        
-        </ul>
-      
-    </div>
-  </nav>
-</header>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+<body class="light-mode">
+  <header class="encabezado">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Inicio</a>
+        <button class="navbar-toggler collapsed" id="hamburgerBtn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon" id="hamburgerSkin"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="categories.html">Categorias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="sell.html">Vender</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="nombre" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="img/usuario.png" alt="logo o imagen usuario" class="logo-usuario"></a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="my-profile.html">Perfil</a></li>
+                <li><a class="dropdown-item" href="cart.html">Carrito</a></li>
+                <li><a class="dropdown-item" href="#">Mis compras</a></li>
+                <li>
+                  <div class="dropdown-item">
+                    <label id="switch">
+                      <input type="checkbox">
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                </li>
+                <li id="salir">Desconectar</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
+    </nav>
+  </header>
+  <main>
+
+    
+
+    <!--Cart header-->
+    <div class="container col-sm-12 col-md-8 col-lg-6 px-0">
+      <div class="form-group">
+        <div class="px-2 py-0" >
+            <div class="row topCart">
+              <div class="col-2 fnt-size text-center"></div>
+              <div class="col fnt-size text-center">Nombre</div>
+              <div class="col fnt-size text-center">Precio</div>
+              <div class="col fnt-size text-center">Cantidad</div>
+              <div class="col fnt-size text-center">Subtotal</div>
+            </div>
+        </div>
+      </div>
+      <!--Cart content-->
+      <div class="form-group" id="listaCarrito">
+
+      </div>
+      <!--CART END-->
     </div>
+    <br>
+
+    <section class="h-100">
+      <div class="container h-100">
+        <div class="row justify-content-md-center h-100">
+          <div class="card-wrapper" >
+            
+            <div class="card fat" id="formulario">
+              <div class="card-body form-control dark-mode" >
+                <h4 class="card-title">Envío</h4>
+                  <div class="form-group">
+                    <label for="Calle">Calle</label>
+                    <input id="calle" type="text" class="form-control" name="calle" value="" required autofocus>
+                  </div>
+  
+                  <div class="form-group">
+                    <label for="Numero">Numero</label>
+                    <input id="numero" type="number" class="form-control" name="numero" required data-eye>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="Esquina">Esquina</label>
+                    <input id="esquina" type="text" class="form-control" name="esquina" required data-eye>
+                  </div>
+                  
+  
+                  <div class="form-group m-0">
+                    <button type="submit" class="btn btn-primary btn-block">
+                      Comprar
+                    </button>
+                  </div>
+                
+              </div>
+            </div>
+            </div>
+			</div>
+		</div>
+            </section>
+
   </main>
   <footer class="text-muted">
     <div class="container">
