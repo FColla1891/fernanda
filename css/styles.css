@@ -43,8 +43,6 @@ main
     background-image: url('../img/login.png');
     background-size: contain;
   }
-
-  
 }
 .jumbotron p:last-child {
   margin-bottom: 0;
@@ -158,18 +156,6 @@ main {
 }
 
 @media (max-width: 768px) {
-<<<<<<< Updated upstream
-=======
-  main {
-    margin-top: 0px; /* En dispositivos móviles, se establece a 0 para eliminar el margin-top */
-  }
-
- 
-  
-}
-
-@media (max-width: 768px) {
->>>>>>> Stashed changes
   .col-md-4 {
     position: relative;
     max-width: 100%; /* Ancho máximo del 100% del contenedor */
@@ -190,13 +176,6 @@ main {
     margin: 0;
     text-align: center;
   }
-<<<<<<< Updated upstream
-=======
-
- 
-  
-  
->>>>>>> Stashed changes
 }
 a.custom-card,
 a.custom-card:hover {
@@ -399,7 +378,6 @@ input:checked + .slider:before {
 }
 
 
-<<<<<<< Updated upstream
 .dark-mode .modal-content{
   background-color: rgb(66, 66, 66);
   color: white;
@@ -435,8 +413,6 @@ input:checked + .slider:before {
   color: white;
 }
 
-=======
->>>>>>> Stashed changes
 .dark-mode input{
   background-color: rgb(66, 66, 66);
   color: white;
@@ -445,6 +421,21 @@ input:checked + .slider:before {
 .dark-mode input:focus{
 background-color: rgb(66, 66, 66);
 color: white;
+}
+
+.dark-mode #mainInfo{
+  background-color: rgb(19, 18, 18);
+  color: white;
+}
+
+.dark-mode #descripcion{
+  background-color: rgb(19, 18, 18);
+  color: white;
+}
+
+.dark-mode .dMode{
+  background-color: rgb(19, 18, 18);
+  color: white;
 }
 
 
@@ -581,9 +572,7 @@ color: white;
 }
 /*Fin Carrito*/
 /*Input Carrito*/
-.cantidadProd{
-  max-width: 50px;
-}
+
 /*Fin Input Carrito*/
 /*Tamaño fuente lista del carrito*/
 .fnt-size{
@@ -600,7 +589,6 @@ color: white;
   margin-bottom:40px;
 }
 
-<<<<<<< Updated upstream
 /*Inicio CostosCarrito*/
 .costosF {
   width: 100%;
@@ -653,6 +641,15 @@ color: white;
   color: red;
   font-size: 13px;
 }
-=======
 
->>>>>>> Stashed changes
+/* Estilo para recuadro de foto del perfil */
+
+.recuadro-imagen {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto; /* Esto centra el elemento horizontalmente */
+  border: 2px solid #000;
+  border-radius: 10px;
+}
